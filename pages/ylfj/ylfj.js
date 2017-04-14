@@ -35,7 +35,7 @@ app.controller('ylfjController', function($scope, selfac, tql) {
         var zhdl = 0;
         if(t=="profit"||t=="rate_profit"){zhdl=1};
         return {
-            nameOrange: t=="product_name",
+            nameOrange: t=="product_name"||t=="product_code",
             syRed: zhdl&&parseFloat(list[idx])>0,
             syGray: zhdl&&parseFloat(list[idx])==0,
             syGreen: zhdl&&parseFloat(list[idx])<0,

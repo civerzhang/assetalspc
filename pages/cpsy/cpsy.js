@@ -146,7 +146,7 @@ app.controller('cpsyController', function ($scope,tql,selfac) {
 	                type:'spline'
 	              },
 	              title:{
-	                text:'收益走势图',
+	                text:'收益走势',
 	                align:'left'
 	              },
 	              credits: {

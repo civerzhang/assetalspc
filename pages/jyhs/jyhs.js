@@ -244,6 +244,7 @@ app.controller('jyhsController', function($scope, selfac, tql) {
                 }
             },
             series: [{
+                type: 'spline', //折线图
                 name: '日换手率',
                 tooltip: {
                     valueSuffix: '%'

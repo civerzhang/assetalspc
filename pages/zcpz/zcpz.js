@@ -180,7 +180,8 @@ app.controller('zcpzController', function ($scope,tql,selfac) {
                     type:'area'
                   },
                   title:{
-                    text:''
+                    text:'资产分布',
+                    align:'left'
                   },
                   legend: {
                     align: 'center',

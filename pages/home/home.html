@@ -27,8 +27,8 @@
 			        <li class="col-md-6 col-xs-6"><label>姓&nbsp&nbsp&nbsp&nbsp名:&nbsp&nbsp</label><span class="blue">{{$parent.userinfo[0][1]}}</span></li>
 			        <li class="col-md-6 col-xs-6"><label>营业部 :&nbsp&nbsp</label><span>{{$parent.userinfo[2][1]}}</span></li>
 			        <li class="col-md-12 col-xs-12"><label>券&nbsp&nbsp&nbsp&nbsp商:&nbsp&nbsp</label><span class="blue">{{$parent.userinfo[1][1]}}</span></li>
-			        <li class="sy-info" ng-class="{true: 'syRed',false: 'syGreen'}[Number(dataZhxx.yk) >= 0]"><span>盈亏</span><br><span>{{dataZhxx.yk | numberFormat}}</span></li>
-			        <li class="sy-info" ng-class="{true: 'syRed',false: 'syGreen'}[Number(dataZhxx.syl) >= 0]"><span>收益率</span><br><span>{{dataZhxx.syl | numberFormat:1}}</span></li>
+			        <li class="sy-info" ng-class="{true: 'syRed',false: 'syGreen'}[dataZhxx.yk  >= 0]"><span>盈亏</span><br><span>{{dataZhxx.yk | numberFormat}}</span></li>
+			        <li class="sy-info" ng-class="{true: 'syRed',false: 'syGreen'}[dataZhxx.syl >= 0]"><span>收益率</span><br><span>{{dataZhxx.syl | numberFormat:1}}</span></li>
 			    </div>
 			</div>
 
@@ -38,9 +38,9 @@
 					区间收益
 			    </div>
 			    <div class="panel-body row">
-			        <li class="col-md-6 col-xs-6"><label>区间收益 :&nbsp&nbsp</label><span ng-class="{true: 'syRed',false: 'syGreen'}[Number(dataQjsy.qjsy) >= 0]">{{dataQjsy.qjsy | numberFormat}}</span></li>
+			        <li class="col-md-6 col-xs-6"><label>区间收益 :&nbsp&nbsp</label><span ng-class="{true: 'syRed',false: 'syGreen'}[dataZhxx.yk >= 0]">{{dataQjsy.qjsy | numberFormat}}</span></li>
 			        <li class="col-md-6 col-xs-6"><label>期初资产 :&nbsp&nbsp</label><span>{{dataQjsy.qczc}}</span></li>
-			        <li class="col-md-6 col-xs-6"><label>收益率 :&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><span ng-class="{true: 'syRed',false: 'syGreen'}[Number(dataQjsy.syl) >= 0]">{{dataQjsy.syl | numberFormat:1}}</span></li>
+			        <li class="col-md-6 col-xs-6"><label>收益率 :&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label><span ng-class="{true: 'syRed',false: 'syGreen'}[dataZhxx.syl >= 0]">{{dataQjsy.syl | numberFormat:1}}</span></li>
 			        <li class="col-md-6 col-xs-6"><label>区间成交 :&nbsp&nbsp</label><span>{{dataQjsy.qjcj}}</span></li>
 			        <li class="col-md-6 col-xs-6"><label>区间投入 :&nbsp&nbsp</label><span>{{dataQjsy.qjtr}}</span></li>
 			        <li class="col-md-6 col-xs-6"><label>累计投入 :&nbsp&nbsp</label><span>{{dataQjsy.ljtr}}</span></li>
@@ -56,9 +56,9 @@
 			    </div>
 			    <div class="panel-body row syzs">
 			        <ul class="panel-nav">
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==0}" ng-click="dealQjsy(0)">最近3个月</li>
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==1}" ng-click="dealQjsy(1)">最近6个月</li>
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==2}" ng-click="dealQjsy(2)">最近1年</li>
+			        	<li class='chooseLi' ng-class="{'active': syzsIndex==0}" ng-click="dealQjsy(0)">近三月</li>
+			        	<li class='chooseLi' ng-class="{'active': syzsIndex==1}" ng-click="dealQjsy(1)">近半年</li>
+			        	<li class='chooseLi' ng-class="{'active': syzsIndex==2}" ng-click="dealQjsy(2)">近一年</li>
 			        </ul>
 			        <div id="syzs"></div>
 			    </div>
@@ -130,8 +130,13 @@
 					日均换手
 			    </div>
 			    <div class="panel-body" id="rjhs">
+			    	<ul class="panel-nav" style="width: 100%;text-align: left;">
+			        	<li class='chooseLi' ng-class="{'active': rjhsIndex==0}" ng-click="rjhs(0)">近三月</li>
+			        	<li class='chooseLi' ng-class="{'active': rjhsIndex==1}" ng-click="rjhs(1)">近半年</li>
+			        	<li class='chooseLi' ng-class="{'active': rjhsIndex==2}" ng-click="rjhs(2)">近一年</li>
+			        </ul>
 			    	<div><strong>{{rjhsData.hsv}}%</strong></div>
-			    	<div style="background-image:url(../assetalspc/pages/image/syhs3.png);width: 230px;height: 12px;margin: 0 auto;margin-top: 20px;">
+			    	<div style="background-image:url(../assetalspc/pages/image/syhs3.png);width: 230px;height: 12px;margin: 0 auto;margin-top: 15px;">
 			    		<p style="display: block;width: 5px;height: 100%;background-color: #1E90FF;margin-left: {{rjhsData.hsv}}%;"></p>
 			    	</div>
 			    	<div style="width: 230px;height: 18px;margin: 0 auto;line-height: 18px;">
@@ -150,13 +155,13 @@
 			    </div>
 			    <div class="panel-body" id="sybd">
 			    	<ul class="panel-nav" style="float: left;">
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==0}" ng-click="dealQjsy(0)">最近3个月</li>
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==1}" ng-click="dealQjsy(1)">最近6个月</li>
-			        	<li class='chooseLi' ng-class="{'active': syzsIndex==2}" ng-click="dealQjsy(2)">最近1年</li>
+			        	<li class='chooseLi' ng-class="{'active': sybdIndex==0}" ng-click="sybd(0)">近三月</li>
+			        	<li class='chooseLi' ng-class="{'active': sybdIndex==1}" ng-click="sybd(1)">近半年</li>
+			        	<li class='chooseLi' ng-class="{'active': sybdIndex==2}" ng-click="sybd(2)">近一年</li>
 			        </ul>
-			    	<img src="../assetalspc/pages/image/syhs1.png" id="img1" style="display: block;position: relative;top: 10px;left: {{sybdData.aWidth}}">
+			    	<img src="../assetalspc/pages/image/syhs1.png" id="img1" style="clear: both; display: block;position: relative;top:20px;left: {{sybdData.aWidth}}">
 			    	<img src="../assetalspc/pages/image/syhs2.png" id="img2" style="left: {{sybdData.bWidth}};transform:rotate({{sybdData.transrorm}}deg);-ms-transform:rotate({{sybdData.transrorm}}deg); -moz-transform:rotate({{sybdData.transrorm}}deg); -webkit-transform:rotate({{sybdData.transrorm}}deg);-o-transform:rotate({{sybdData.transrorm}}deg);">
-			    	<p style="margin-top: -35px;margin-bottom: 5px;"><strong>{{sybdData.sybdText.slice(0,4)}}</strong></p>
+			    	<p style="margin-top: 10px;margin-bottom: 5px;"><strong>{{sybdData.sybdText.slice(0,4)}}</strong></p>
 			    	<p>{{sybdData.sybdText.slice(4)}}</p>
 			    </div>
 			</div>

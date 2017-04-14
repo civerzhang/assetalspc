@@ -129,6 +129,12 @@ app.controller('zqhbController', function ($scope,tql,selfac) {
 			    	yAx[i] = new Object();
 			    	yAx[i].name = $scope.zqhbData.body[i][0];
 			    	yAx[i].data = $scope.zqhbData.body[i].slice(1);
+			    	if(yAx[i].data > 0){
+			    		yAx[i].color = 'red';
+			    	}
+			    	else{
+			    		yAx[i].color = 'green';
+			    	}
 			    }
 
 		    	//highcharts处理数据  画图
@@ -137,7 +143,7 @@ app.controller('zqhbController', function ($scope,tql,selfac) {
 		                type:'column'
 		              },
 		              title:{
-		                text:'周期回报图',
+		                text:'周期回报',
 		                align:'left'
 		              },
 		              legend: {
@@ -148,7 +154,7 @@ app.controller('zqhbController', function ($scope,tql,selfac) {
 		              credits: {
 	            		enabled: false
 	        	      },
-	        	      colors: ['#ff3e3e', '#00A6ED', '#52D1DC', '#FFB400', '#7FB800'],
+	        	      //colors: ['#ff3e3e', '#00A6ED', '#52D1DC', '#FFB400', '#7FB800'],
 		              xAxis:{
 		                categories:xAx,
 		                crosshair:true

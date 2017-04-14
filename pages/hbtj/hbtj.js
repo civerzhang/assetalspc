@@ -168,8 +168,15 @@ app.controller('hbtjController', function ($scope,tql) {
 	    }, "JSONIX",true).then(function(res){
 	    	if(res.list){
 	    		for(var i in res.list){
+	    			syl[i] = new Object();
 	    			xAx[i] = res.list[i]['bal_date'];
-	    			syl[i] = parseFloat(res.list[i]['rate_profit']);
+	    			syl[i].y = parseFloat(res.list[i]['rate_profit']);
+	    			if(syl[i].y > 0){
+	    				syl[i].color = 'red';
+	    			}
+	    			else{
+	    				syl[i].color = 'green';
+	    			}
 	    		}
 	    		chart();
 	    	}
@@ -184,7 +191,7 @@ app.controller('hbtjController', function ($scope,tql) {
 	                type:'column'
 	              },
 	              title:{
-	                text:'回报统计图',
+	                text:'回报统计',
 	                align:'left'
 	              },
 	              legend: {
@@ -192,7 +199,7 @@ app.controller('hbtjController', function ($scope,tql) {
 	                verticalAlign: 'top',
 	                borderWidth: 0,
 	              },
-	              colors: ['#ff3e3e', '#00A6ED', '#52D1DC', '#FFB400', '#7FB800'],
+	              // colors: ['#ff3e3e', '#00A6ED', '#52D1DC', '#FFB400', '#7FB800'],
 	              credits: {
             		enabled: false
         	      },

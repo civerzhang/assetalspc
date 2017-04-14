@@ -24,6 +24,7 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
       end: selfac["dateFormat"]('', 'Y-M-D')
     }
     $scope.syzsIndex = 0;
+    $scope.sybdIndex = 0;
     $scope.zcxxIndex = 0;
     $scope.ylfjIndex = 0;
     $scope.ylfjorder = 0;//盈利分解赚钱股票 or 亏钱股票
@@ -31,8 +32,8 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
 
     // 账户信息
     $scope.dataZhxx = {
-      'yk': $scope.default,
-      'syl': $scope.default
+      'yk': 0,
+      'syl': 0
     }
 
     // 资产信息
@@ -118,8 +119,9 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
           $scope.dataQjsy.qjsy = list["profit"];
           $scope.dataQjsy.syl = list['rate_profit'];
 
-          $scope.dataZhxx.yk = $scope.dataQjsy.qjsy;
-          $scope.dataZhxx.syl = $scope.dataQjsy.syl;
+
+          $scope.dataZhxx.yk = parseFloat($scope.dataQjsy.qjsy);
+          $scope.dataZhxx.syl = parseFloat($scope.dataQjsy.syl);
         }
       }, function (reason) {
         $scope.loadstate = '查询失败';
@@ -151,10 +153,6 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
             hsSy[j] = parseFloat(hsres.list[j]['rate_profit_SZSE_A_399300']);
           }
 
-          //给日均换手率  日均波动率绘图
-          $scope.dealrjhs(Number(hsres.list[0]['avg_turnover']));
-          $scope.sybd(Number(hsres.list[0]['fluctuation_profit']));
-
           tql.home['用户区间收益查询']({
             'op_flag': __syzsFlag[flag],
             'order_field': '',
@@ -166,7 +164,7 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
               for(var s in userres.list){
                 userSy[s] = parseFloat(userres.list[s]['rate_profit']);
               }
-
+              
               chart();
           }, function(err) {
             alert('收益走势查询失败' + err);
@@ -194,7 +192,7 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
               xAxis:{
                 categories:xaxisArray,
                 crosshair:true,
-                tickInterval: xaxisArray.length/(xaxisArray.length/12)
+                tickInterval: parseInt(xaxisArray.length/5)
               },
               credits: {
                 enabled: false
@@ -318,7 +316,9 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
             },
             colors: ['#ff3e3e','#52D1DC', '#00A6ED',  '#FFB400', '#7FB800'],
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+              pointFormat: "{series.name}: <b>{point.y}</b><br/>",
+              valueSuffix: " %",
+              shared: true
             },
             plotOptions: {
                 pie: {
@@ -350,8 +350,23 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
     }
 
     //收益波动
-    $scope.sybd = function(aData){
-          var sybdlv = aData;
+    $scope.sybd = function(flag){
+      $scope.sybdIndex = flag;
+      var __syzsFlag = [2, 3, 4];
+      tql.home['用户区间收益查询']({
+        'op_flag': __syzsFlag[flag],
+        'order_field': '',
+        'order_flag':'1',
+        'cond_json': {
+          'exch_code':'SZSE',
+          'market_code':'A',
+          'product_code':'399300'
+        },
+        '@POS':  0,
+        '@COUNT': -1
+      }, "JSONIX",true).then(function(hsres) {
+          
+          var sybdlv = Number(hsres.list[0]['fluctuation_profit']);
           if(sybdlv < 16){
             $scope.sybdData.sybdText = '风平浪静组合收益风平浪静，涨跌幅波动极小';
           }
@@ -363,19 +378,46 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
           }
           else if(sybdlv >= 80){
             $scope.sybdData.sybdText = '惊涛骇浪组合收益波动惊涛骇浪，涨跌幅波动极大';
+            sybdlv = 180;
           }
-          
           $scope.sybdData.transrorm = sybdlv;
+
+      }, function(err) {
+        alert('收益走势查询失败' + err);
+      });
     }
 
+    //人均换手
     $scope.rjhsData = {
       perDay: "",
       hsv: ""
     }
-    //日均换手
-    $scope.dealrjhs = function(bData){
-          $scope.rjhsData.hsv = bData;
-          $scope.rjhsData.perDay = parseInt(100/$scope.rjhsData.hsv);
+ 
+    $scope.rjhs = function(flag){
+      $scope.rjhsIndex = flag;
+      var __syzsFlag = [2, 3, 4];
+      tql.home['用户区间收益查询']({
+        'op_flag': __syzsFlag[flag],
+        'order_field': '',
+        'order_flag':'1',
+        'cond_json': {
+          'exch_code':'SZSE',
+          'market_code':'A',
+          'product_code':'399300'
+        },
+        '@POS':  0,
+        '@COUNT': -1
+      }, "JSONIX",true).then(function(hsres) {
+
+          //给日均换手率  日均波动率绘图
+           $scope.rjhsData.hsv = Number(hsres.list[0]['avg_turnover']);
+
+
+           $scope.rjhsData.perDay = ($scope.rjhsData.hsv!=0) ?  parseInt(100/$scope.rjhsData.hsv) : 0;
+
+      }, function(err) {
+        alert('换手率查询失败' + err);
+      });
     }
 
     //首页界面初始化
@@ -384,7 +426,8 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
     $scope.dealQjsy(0);
     $scope.qjylfjIndex(0);
     $scope.zcfb();
-
+    $scope.sybd(0);
+    $scope.rjhs(0);
     // 查询点击
     $scope.cx = function() {
       var $date = $('.nav li input[type="text"]');
@@ -395,6 +438,12 @@ app.controller('mainController', ['$scope', 'tql', 'selfac',
       $scope.dealQjsy(0);
       $scope.qjylfjIndex(0);
       $scope.zcfb();
-    }
+      $scope.sybd(0);
+      $scope.rjhs(0);
+    };
+
+    $(window).resize(function(){
+      location.reload();
+    })
   }
 ]);

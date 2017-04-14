@@ -41,7 +41,7 @@ app.controller('cgtzController', function($scope, selfac, tql) {
     $scope.getClass = function getClass(idx,list) {
         var t = $scope.cgtz.dict[idx];
         return {
-            nameOrange: t=="product_name",
+            nameOrange: t=="product_name"||t=="product_code",
             syRed: t=="rate_close_price"&&parseFloat(list[idx])>0,
             syGray: t=="rate_close_price"&&parseFloat(list[idx])==0,
             syGreen: t=="rate_close_price"&&parseFloat(list[idx])<0,

@@ -104,24 +104,24 @@ app.controller('hypzController', function ($scope,tql,selfac) {
 	            data:['全部','','',(allasset+parseFloat(res.list[0]['open_bal'])),allprofit.toFixed(2),'','','','']
 	          };
 	          $scope.hypzData.push(last);
-
 	          var stockArray = new Array();
-
 	          for(var i=0;i<$scope.hypzData.length;i++){
 	              $scope.hypzData[i].data[3] = $scope.hypzData[i].data[3].toFixed(2);
 	              $scope.hypzData[i].data[5] = ($scope.hypzData[i].data[3]/last.data[3]*100).toFixed(2)+'%';
-
 	              $scope.hypzData[i].data[3] = selfac["numberFormat"]($scope.hypzData[i].data[3]);
-	              $scope.hypzData[i].data[4] = $scope.hypzData[i].data[4];
-
+	         
 	              //请求行情数据
-              	  var stockStr = {
-	              	Code:$scope.hypzData[i].data[2],
-	              	Setcode: $scope.hypzData[i].data[9]
-	              }; 
+	              if(!$scope.hypzData[j].icon){
+              		var stockStr = {
+	              		Code:$scope.hypzData[i].data[1],
+	              		Setcode: $scope.hypzData[i].data[9]
+	              	}; 
 
-	             stockArray.push(stockStr);
-
+	              	stockArray.push(stockStr);
+	              }
+          		  
+	              
+              	    
 	             if(stockArray.length == 20  || (i == $scope.hypzData.length-1)){
 	             	  var jsonStr = {
 			          	WantCol:['SYL','ZSZ'],
@@ -158,6 +158,7 @@ app.controller('hypzController', function ($scope,tql,selfac) {
 						          	$scope.hypzData[i].data[8] = selfac["numberFormat"]($scope.hypzData[i].data[8]);
 						          }
 
+						          
 						          $scope.$apply();
 			              	}
 

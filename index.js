@@ -374,5 +374,25 @@ app.controller('indexController', ['$scope', 'selfac', 'tql', 'tdxSystemInterfac
     table_to_eccel(tableid);
   }
   
+  //弹出协议确认框
+  // tql.home['用户信息查询']({
+  //   'op_flag': 11,
+  //   'date_start': selfac["dateFormat"]('', 'YMD'),
+  //   'date_end':selfac["dateFormat"]('', 'YMD'),
+  //   'order_field': '',
+  //   'order_flag':'1',
+  //   'cond_json': '',
+  //   '@POS':  0,
+  //   '@COUNT': -1
+  // }, "JSONIX",true).then(function(res){
+  //   if(!Number(res.list[0]['sign_status'])){
+      
+  //   }
+  //   var state = res.list[0]['content'];
+
+  // },function(reason){
+  //   $scope.loadstate = '查询失败';
+  //   $scope.errorinof = reason;
+  // })
 }]);
 
