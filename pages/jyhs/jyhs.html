@@ -1,0 +1,38 @@
+<!-- 盈利分解 -->
+<div class="sub-page">
+    <!--<h1>Contact Page</h1>-->
+    <!--<p>{{ JourList.bal_date }}</p>-->
+    <ul class="nav">
+        <li>
+            <label>开始日期: </label><input type="text" readonly ng-model="date.start" class="form_datetime">
+        </li>
+        <li>
+            <label>结束日期: </label><input type="text" readonly ng-model="date.end" class="form_datetime">
+        </li>
+        <li>
+            <span class="btn btn-default" ng-click="cxData()">查  询</span>
+        </li>
+        <li>
+            <span class="btn btn-default" ng-click="tableExcel('jyhsTable')">导出Excel</span>
+        </li>
+    </ul>
+    <!-- 展示列表 -->
+    <div style="height: 40%;" class="table-responsive">
+        <scrollable-table>
+			<table class="cpsy-table zcfx-table table-bordered table-scroll" id="jyhsTable">
+            <thead>
+            <tr>
+                <th ng-repeat="list in jyhs.head track by $index">{{list}}</th>
+            </tr>
+            </thead>
+			<tbody ng-style="getHeight()" resize>
+            <tr ng-repeat="list in jyhs.body track by $index" class="cpsy-table-list">
+                <td ng-repeat="item in list track by $index">{{item}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </scrollable-table>
+    </div>
+
+    <div id="hszstBox" class="highChart"></div>
+</div>

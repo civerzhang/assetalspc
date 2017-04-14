@@ -1,0 +1,45 @@
+<!-- 盈利分解 -->
+<div class="sub-page">
+	<!-- 盈利分解导航头 -->
+	<ul class="nav">
+		<li>
+			<label>开始日期: </label><input type="text" readonly ng-model="date.start" class="form_datetime">
+		</li>
+		<li>
+			<label>结束日期: </label><input type="text" readonly ng-model="date.end" class="form_datetime">
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="cxData()">查  询</span>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="tableExcel('ylfjTable')">导出Excel</span>
+		</li>
+	</ul>
+	<!-- 展示列表 -->
+	<div style="height: 40%;" class="table-responsive">
+		<scrollable-table>
+		<table class="cpsy-table zcfx-table table-bordered table-scroll" id="ylfjTable">
+			<thead>
+			<tr>
+				<th ng-repeat="list in ylfj.head track by $index">{{list}}</th>
+			</tr>
+			</thead>
+			<tbody ng-style="getHeight()" resize>
+			<tr ng-repeat="list in ylfj.body track by $index" class="cpsy-table-list">
+				<td ng-repeat="item in list track by $index" ng-class="getClass($index,list)">{{item}}</td>
+			</tr>
+			</tbody>
+		</table>
+		</scrollable-table>
+	</div>
+
+	<div class="row" style="margin-top: 10px;height: 35px">
+		<ul class="panel-nav">
+			<li style="width: 90px" class='chooseLi' ng-class="{'active': picIndex==1}" ng-click="disPic(1)">盈亏走势图</li>
+			<li style="width: 90px" class='chooseLi' ng-class="{'active': picIndex==2}" ng-click="disPic(2)">盈亏分布图</li>
+		</ul>
+			<!--<span style ="border:solid 1px;cursor: pointer;margin-left: 30px;padding: 3px" ng-click="disPic(1)">盈亏走势图</span>-->
+			<!--<span style ="border:solid 1px;cursor: pointer;margin: 0 -5px;padding: 3px" ng-click="disPic(2)">盈亏分布图</span>-->
+	</div>
+	<div id="ylfjBox" class="highChart" style="margin-top: 0"></div>
+</div>

@@ -1,0 +1,56 @@
+<!-- 周期回报 -->
+<div class="sub-page">
+    <!-- 周期回报导航头 -->
+	<ul class="nav">
+		<li>
+			<span>开始日期: </span><input type="text" readonly ng-model="date.start" class="form_datetime">
+		</li>
+		<li>
+			<span>结束日期: </span><input type="text" readonly ng-model="date.end" class="form_datetime">
+		</li>
+		<!-- <li class="dropdown-list">
+			<label>回报类型:</label>
+			<div class="dropdown">
+				<a href="javascript: void(0);" data-toggle="dropdown">
+					{{hblx.select}}
+					<b class="caret" style="float: right; margin-top: 6px;"></b>
+				</a>
+				<ul class="dropdown-menu">
+					<li ng-repeat="item in hblx.list track by $index" ng-click="hblx.select = item">{{item}}</li>
+				</ul>
+			</div>
+		</li> -->
+		<li><label>业绩基准:</label></li>
+		<li class="dropdown-list">
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle dropMenu"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					{{yjjz.select}}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li ng-repeat="item in yjjz.list track by $index" ng-click="zqhb($index)">{{item}}</li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="cx()">查  询</span>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="tableExcel('zqhbTable')">导出Excel</span>
+		</li>
+	</ul>
+
+	<!-- 周期回报展示列表 -->
+	<div style="height: 40%;" class="table-responsive">
+		<table class="hbtj-table zcfx-table table-bordered" id="zqhbTable">
+			<tr>
+				<th ng-repeat="list in zqhbData.head track by $index">{{list}}</th>
+			</tr>
+			<tr ng-repeat="list in zqhbData.body track by $index" class="hbtj-table-list">
+				<td ng-repeat="item in list track by $index" ng-class="getColor(item,$index)">{{item}}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 产品收益展示曲线图 -->
+	<div id="zqhb_curve" class="highChart"></div>
+</div>

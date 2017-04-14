@@ -1,0 +1,38 @@
+<!-- 行业配置 -->
+<div class="sub-page">
+	<!-- 资产配置导航头 -->
+	<ul class="nav">
+		<li>
+			<span>开始日期: </span><input type="text" readonly ng-model="date.start" class="form_datetime">
+		</li>
+		<li>
+			<span>结束日期: </span><input type="text" readonly ng-model="date.end" class="form_datetime">
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="cx()">查  询</span>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="tableExcel('hypzTable')">导出Excel</span>
+		</li>
+	</ul>
+	<div style="height: 40%;" class="table-responsive">
+		<scrollable-table>
+			<table class="cpsy-table zcfx-table table-bordered table-hover table-scroll icon_span" id="hypzTable">
+				<thead>
+					<tr>
+			  			<th ng-repeat="list in head">{{list}}</th>
+			  		</tr>
+				</thead>
+			  	<tbody>
+			  		<tr ng-repeat="(index,list) in  hypzData track by $index"  ng-hide="hypzData[$index].show==false" ng-show="hypzData[$index].show==true">
+			  			<!-- <td><span ng-click='hideShowTd(index)' ng-class="{true:list.icon,false:''}[list.icon.length>0]" aria-hidden="true"></span></td> -->
+			  			<td ng-repeat="num in list.data track by $index" ng-hide='$index==9  || $index==7' ng-class="getColor(num,$index)"><span ng-if="$index == 0">&nbsp&nbsp&nbsp&nbsp&nbsp</span><span ng-click='hideShowTd(index)'  ng-if="list.icon.length>0 && $index == 0" ng-class="{true:list.icon,false:''}[list.icon.length>0]" aria-hidden="true"></span><span ng-if="$index == 0">&nbsp&nbsp&nbsp&nbsp&nbsp</span>{{num | numberFormat:5:$index}}</td>
+			  		</tr>
+			  	</tbody>
+			</table>
+		</scrollable-table>	
+	</div>
+	
+	<!-- 产品收益展示曲线图 -->
+	<div id="hypz_curve" class="highChart"></div>
+</div>

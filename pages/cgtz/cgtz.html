@@ -1,0 +1,49 @@
+<!-- 持股特征 -->
+
+<div class="sub-page">
+	<!-- 持股特征导航头 -->
+	<ul class="nav">
+		<li>
+			<label>开始日期: </label><input type="text" readonly ng-model="date.start" class="form_datetime">
+		</li>
+		<li>
+			<label>结束日期: </label><input type="text" readonly ng-model="date.end" class="form_datetime">
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="cxData()">查  询</span>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="tableExcel('cgtzTable')">导出Excel</span>
+		</li>
+	</ul>
+
+	<!-- 展示列表 -->
+	<div style="height: 40%;" class="table-responsive">
+		<scrollable-table>
+		<table class="cpsy-table zcfx-table table-bordered table-scroll" id="cgtzTable">
+			<thead>
+			<tr>
+				<th ng-repeat="list in cgtz.head track by $index">{{list}}</th>
+			</tr>
+			</thead>
+			<tbody ng-style="getHeight()" resize>
+			<tr ng-repeat="list in cgtz.body track by $index" class="cpsy-table-list">
+				<td ng-repeat="item in list track by $index" ng-class="getClass($index,list)">{{item}}</td>
+			</tr>
+			</tbody>
+		</table>
+		</scrollable-table>
+	</div>	
+	<div class="row" style="margin-top: 10px;height: 35px;">
+		<ul class="panel-nav">
+			<li style="width: 90px" class='chooseLi' ng-class="{'active': cgtzIndex==1}" ng-click="changeData(1)">每股收益</li>
+			<li style="width: 90px" class='chooseLi' ng-class="{'active': cgtzIndex==2}" ng-click="changeData(2)">每股净资产</li>
+			<li style="width: 90px" class='chooseLi' ng-class="{'active': cgtzIndex==3}" ng-click="changeData(3)">市盈率</li>
+		</ul>
+		<!--<span style ="border:solid 1px;cursor: pointer;margin-left: 30px;padding: 3px" ng-click="changeData(1)">每股收益</span>-->
+		<!--<span style ="border:solid 1px;cursor: pointer;margin: 0 -5px;padding: 3px" ng-click="changeData(2)">每股净资产</span>-->
+		<!--<span style ="border:solid 1px;cursor: pointer;margin: 0 0;padding: 3px" ng-click="changeData(3)">市盈率</span>-->
+	</div>
+	<!--  图形展示  -->
+	<div id="cgtzBox" class="highChart" style="margin-top: 0"></div>
+</div>
