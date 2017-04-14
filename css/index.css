@@ -266,20 +266,7 @@ label {
 #sybd {
 	height: 260px;
 }
-.fixed-head {
-	display: block;
-	width: 100%;
-}
-.fixed-head td {
-	width: 100%;
-}
-thead {
-	/*display: block;*/
-}
-tbody {
-	/*display: block;*/
-	overflow: auto;
-}
+
 .table-scroll thead {
 	display: table;
 	width: 100%;
@@ -302,27 +289,20 @@ tbody {
 }
 
 /* table样式 */
-.zcfx-table {
-	width: 100%;
-	margin-top: 5px;
-}
+.zcfx-table { width: 100%; margin-top: 5px; }
+
 .zcfx-table tr {
 	height: 22px;
 	line-height: 22px;
 	font-size: 12px;
 }
-.zcfx-table tr:nth-child(1) {
-	background-color: #F3F3F3;
-}
-.zcfx-table tr:not(:first-child) {
-	background-color: white;
-}
-.zcfx-table tr:not(:first-child):hover {
-	background-color: #F9F9F9;
-}
-.zcfx-table th, .zcfx-table td {
-	text-align: center;
-}
+
+.zcfx-table tr:nth-child(1) { background-color: #F3F3F3; }
+.zcfx-table tr:not(:first-child) { background-color: white; }
+.zcfx-table tr:not(:first-child):hover { background-color: #F9F9F9; }
+
+.zcfx-table th, .zcfx-table td { text-align: center; }
+
 .highChart {
 	float: bottom;
 	width: 100%;
