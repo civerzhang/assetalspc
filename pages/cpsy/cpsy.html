@@ -1,0 +1,47 @@
+<!-- cpsy.html -->
+<div class="sub-page">
+	<!-- 产品收益导航头 -->
+	<ul class="nav">
+		<li>
+			<span>开始日期: </span><input type="text" readonly ng-model="date.start" class="form_datetime">
+		</li>
+		<li>
+			<span>结束日期: </span><input type="text" readonly ng-model="date.end" class="form_datetime">
+		</li>
+		<li><label>业绩基准:</label></li>
+		<li>
+			<div class="dropdown">
+				<button class="btn btn-default dropdown-toggle dropMenu"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					{{yjjz.select}}
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li ng-repeat="item in yjjz.list track by $index" ng-click="cpsyF($index)">{{item}}</li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="cx()">查  询</span>
+		</li>
+		<li>
+			<span class="btn btn-default" ng-click="tableExcel('cpsyTable')">导出Excel</span>
+		</li>
+	</ul>
+	<!-- 产品收益展示列表 -->
+	<div style="height: 40%;" class="table-responsive">
+		<table class="cpsy-table zcfx-table table-bordered table-scroll" id="cpsyTable">
+			<thead>
+				<tr>
+					<th ng-repeat="list in cpsy.head track by $index">{{list}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="list in cpsy.body track by $index" class="cpsy-table-list">
+					<td ng-repeat="item in list track by $index" ng-class="getColor(item,$index)">{{item}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 产品收益展示曲线图 -->
+	<div class="highChart" id="cpsy_curve"></div>
+</div>

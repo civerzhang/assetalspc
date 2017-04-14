@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html ng-app="project-show">
+<head>
+  <meta charset="utf-8">
+  <title>资产分析</title>
+
+  <!-- Link lib css -->
+  <link href="../../libs/bootsrap/bootstrap.min.css" rel="stylesheet">
+  <link href="../../libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../../libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css">
+
+  <!-- Self css style -->
+  <link rel="stylesheet" type="text/css" href="./css/index.css">
+
+  <script src="./js/angular.js"></script>
+  <script src="./js/angular-route.js"></script>
+  <script src="../../libs/jquery-1.11.2.min.js"></script>
+  <script src="../../libs/highcharts.js"></script>
+  <script src="../../tlibs/ts_client.js"></script>
+  <script src="../../tlibs/connect.js"></script>
+  <script type="text/javascript" src="../../libs/bootsrap/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="../../libs/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+
+  <!-- Base Services -->
+  <script src="./index.js"></script>
+  <script src="./pages/_common/service_jsonix.js"></script>
+  <script src="./pages/_common/service_tdx_sys_interface.js"></script>
+  <script src="./pages/_common/service_tql.js"></script>
+  <script src="./pages/_common/service_tql_exports.js"></script>
+
+  <!-- 404 not found -->
+  <script src="./pages/404/main.js"></script>
+
+
+  <script src="./pages/home/home.js"></script>
+  <script src="./pages/cpsy/cpsy.js"></script>
+  <script src="./pages/hbtj/hbtj.js"></script>
+  <script src="./pages/zqhb/zqhb.js"></script>
+  <script src="./pages/zcpz/zcpz.js"></script>
+  <script src="./pages/hypz/hypz.js"></script>
+  <script src="./pages/cgtz/cgtz.js"></script>
+  <script src="./pages/ylfj/ylfj.js"></script>
+  <script src="./pages/jyhs/jyhs.js"></script>
+</head>
+
+<!-- define angular controller -->
+<body >
+<div id="box">
+  <div id="top">
+    <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav nav-pills" ng-init="clickLi=0">
+          <li ng-class="{'active': clickLi == 0}" ng-click='clickLi=0' ><a href="#"><i class="fa fa-home"></i> 账户总览</a></li>
+          <li ng-class="{'active': clickLi == 1}" ng-click='clickLi=1' ><a href="#cpsy"><i class="fa fa-shopping-cart"></i> 账户收益</a></li>
+          <li ng-class="{'active': clickLi == 2}" ng-click='clickLi=2' ><a href="#hbtj"><i class="fa fa-bar-chart-o"></i> 回报统计</a></li>
+          <li ng-class="{'active': clickLi == 3}" ng-click='clickLi=3' ><a href="#zqhb"><i class="fa fa-calendar"></i> 周期回报</a></li>
+          <li ng-class="{'active': clickLi == 4}" ng-click='clickLi=4' ><a href="#zcpz"><i class="fa fa-briefcase"></i> 资产配置</a></li>
+          <li ng-class="{'active': clickLi == 5}" ng-click='clickLi=5' ><a href="#hypz"><i class="fa fa-truck"></i> 行业配置</a></li>
+          <li ng-class="{'active': clickLi == 6}" ng-click='clickLi=6' ><a href="#cgtz"><i class="fa fa-dropbox"></i> 持股特征</a></li>
+          <li ng-class="{'active': clickLi == 7}" ng-click='clickLi=7' ><a href="#ylfj"><i class="fa fa-sitemap"></i> 盈利分解</a></li>
+          <li ng-class="{'active': clickLi == 8}" ng-click='clickLi=8' ><a href="#jyhs"><i class="fa fa-exchange"></i> 交易换手</a></li>
+        </ul>
+    </nav>
+  </div>
+
+  <div id="main" ng-controller="indexController">
+    <ul class="user-list-group">
+      <li class="user-list-item" ng-repeat="list in userinfo track by $index">{{list[0]}}: <span>{{list[1]}}</span></li>
+    </ul>
+
+    <div ng-view class="viewDiv">
+
+    </div>
+  </div>
+</div>
+</body>

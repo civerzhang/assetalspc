@@ -1,0 +1,15 @@
+<div style="
+  margin: 60px auto;
+  max-width: 700px;
+">
+  <div class="alert alert-warning">
+    <h3><i class="fa fa-exclamation-triangle"></i> 您访问的页面不存在</h3>
+    <hr>
+    <p class="text text-muted" ng-dblclick="toggleDebug()">{{path}}</p>
+    <p class="text text-muted" ng-show="debug">{{url}}</p>
+    <hr>
+    <p>
+      <button class="btn btn-default btn-sm" ng-click="routeBack()">返回</button>
+    </p>
+  </div>
+</div>
